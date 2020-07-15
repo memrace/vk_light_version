@@ -1,0 +1,14 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <style name="style1">
+        <item name="fontFamily">@font/roboto_slab</item>
+        <item name="android:textSize">24pt</item>
+        <item name="android:textColor">#D8040303</item>
+    </style>
+</resources>

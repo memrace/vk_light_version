@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="width_log">250sp</dimen>
+    <dimen name="height_log">45sp</dimen>
+
+</resources>

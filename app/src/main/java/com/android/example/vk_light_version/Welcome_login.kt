@@ -5,22 +5,22 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.android.example.vk_light_version.databinding.ActivityMainBinding
+import com.android.example.vk_light_version.databinding.ActivityLoginBinding
 import com.vk.api.sdk.VK
 import com.vk.api.sdk.auth.VKAccessToken
 import com.vk.api.sdk.auth.VKAuthCallback
 import com.vk.api.sdk.auth.VKScope
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_login.*
 
 class Welcome_login : AppCompatActivity() {
-	private lateinit var dataBinding: ActivityMainBinding
+	private lateinit var dataBinding: ActivityLoginBinding
 
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
 
-		dataBinding = DataBindingUtil.setContentView(this,R.layout.activity_main)
+		dataBinding = DataBindingUtil.setContentView(this,R.layout.activity_login)
 
 		// 2 VK.addTokenExpiredHandler(tokenTracker)
 

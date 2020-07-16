@@ -22,7 +22,7 @@ class Welcome_login : AppCompatActivity() {
 
 		dataBinding = DataBindingUtil.setContentView(this,R.layout.activity_main)
 
-		//  VK.addTokenExpiredHandler(tokenTracker)
+		// 2 VK.addTokenExpiredHandler(tokenTracker)
 
 
 	}

@@ -10,16 +10,22 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="horizontal"
         tools:context=".StartActivity">
 
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0sp"
+            android:layout_height="0sp"
             android:layout_gravity="bottom"
             android:background="@color/colorAccent"
-            >
+            app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0">
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabs"
@@ -27,15 +33,25 @@
                 android:layout_height="35dp"
                 android:background="@color/colorPrimary"
                 app:tabGravity="center"
-                app:tabTextColor="#808080"
                 app:tabSelectedTextColor="#CACACA"
-                >
-
-
+                app:tabTextColor="#808080">
 
 
             </com.google.android.material.tabs.TabLayout>
+
+
         </androidx.viewpager.widget.ViewPager>
+
+        <LinearLayout
+            android:id="@+id/coordinatorLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar_main" />
+        </LinearLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

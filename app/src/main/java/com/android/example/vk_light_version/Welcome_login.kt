@@ -36,7 +36,7 @@ class Welcome_login : AppCompatActivity() {
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 		val callback = object: VKAuthCallback {
 			override fun onLogin(token: VKAccessToken) {
-				startActivity(Intent(this@Welcome_login,NewsFeed::class.java).run {
+				startActivity(Intent(this@Welcome_login,StartActivity::class.java).run {
 					putExtra(Intent.EXTRA_USER, 3).also { startActivity(it) }
 				})
 			}

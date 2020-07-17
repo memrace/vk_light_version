@@ -15,20 +15,11 @@ class NewsFeed : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news__feed)
-        checkIsLoggingIn()
+
 
 
     }
 
 
-    private fun checkIsLoggingIn() {
-        if (!VK.isLoggedIn()){
-         startActivity(Intent(this,Welcome_login::class.java))
-        }
-    }
 
-    fun logout(view: View){
-        VK.logout()
-        checkIsLoggingIn()
-    }
 }

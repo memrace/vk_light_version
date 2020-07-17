@@ -1,5 +1,6 @@
 package com.android.example.vk_light_version.fragments
 
+import android.content.res.Resources
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -9,7 +10,7 @@ class PageAdapter(fm:FragmentManager,  count:Int): FragmentPagerAdapter(fm,count
         return when (position) {
             0-> Messages()
             1 -> Recomendations()
-            else -> Messages()
+            else -> Recomendations()
         }
     }
 
@@ -17,11 +18,11 @@ class PageAdapter(fm:FragmentManager,  count:Int): FragmentPagerAdapter(fm,count
         return 2
     }
 
-    fun getPageTittle(position: Int): String {
-        return when(position) {
-            0 -> "Messages"
-            1 -> "Recommendations"
-            else -> "null"
+    override fun getPageTitle(position: Int): CharSequence? {
+        return when (position){
+            0-> "Сообщения" + "      |"
+            1-> "Рекомендации"
+            else -> ""
         }
     }
 

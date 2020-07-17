@@ -16,7 +16,7 @@ class StartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         dataBinding = DataBindingUtil.setContentView(this,R.layout.activity_start)
 
-
+        settingUpViewPager()
 
 
 
@@ -25,7 +25,7 @@ class StartActivity : AppCompatActivity() {
 
     private fun settingUpViewPager() {
         view_pager.adapter = PageAdapter(supportFragmentManager,2)
-        view_pager.currentItem = 0
+        tabs.setupWithViewPager(view_pager)
         
     }
 

@@ -13,26 +13,29 @@
         tools:context=".StartActivity">
 
 
-        <TableLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="30sp"
-            android:background="@color/colorPrimary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <androidx.viewpager.widget.ViewPager
-            android:background="@color/colorAccent"
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="bottom"
-            android:layout_marginTop="30dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tabs" />
+            android:background="@color/colorAccent"
+            >
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="@color/colorPrimary"
+                app:tabGravity="center"
+                app:tabTextColor="#808080"
+                app:tabSelectedTextColor="#CACACA"
+                >
+
+
+
+
+            </com.google.android.material.tabs.TabLayout>
+        </androidx.viewpager.widget.ViewPager>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

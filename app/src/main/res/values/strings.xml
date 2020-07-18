@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">VK</string>
+    <string name="app_name">VK Light</string>
     <string name="welcome">Welcome</string>
     <integer name="com_vk_sdk_AppId">7534796</integer>
     <string name="mes_tab">Messages</string>

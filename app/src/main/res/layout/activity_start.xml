@@ -69,8 +69,8 @@
         android:src="@drawable/ic_menu_settings"
         android:layout_gravity="center"
         android:layout_marginLeft="20dp"
-        android:layout_width="40dp"
-        android:layout_height="40dp"/>
+        android:layout_width="30dp"
+        android:layout_height="30dp"/>
 </LinearLayout>
 </com.google.android.material.navigation.NavigationView>
 

@@ -1,5 +1,6 @@
 package com.android.example.vk_light_version
 
+import android.content.res.Resources
 import android.os.Bundle
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -17,10 +18,12 @@ class StartActivity : AppCompatActivity() {
         viewBinding = ActivityStartBinding.inflate(layoutInflater)
         val view = viewBinding.root
         setContentView(view)
-
-        settingUpViewPager()
+        // Actionbar
         setSupportActionBar(incl_toolbar.eternal_toolbar)
-        settingDrawerButton()
+        // ViewPager
+        settingUpViewPager()
+        // Toggle for Drawer layout
+        settingDrawerToggle()
 
 
     }
@@ -31,9 +34,10 @@ class StartActivity : AppCompatActivity() {
         
     }
 
-    private fun settingDrawerButton(){
+    private fun settingDrawerToggle(){
         val toggle = ActionBarDrawerToggle(this,drawer_layout,incl_toolbar.eternal_toolbar,R.string.nav_open_drawer,R.string.nav_close_drawer)
         drawer_layout.addDrawerListener(toggle)
+        toggle.drawerArrowDrawable.color = resources.getColor(R.color.colorAccent)
         toggle.syncState()
     }
 

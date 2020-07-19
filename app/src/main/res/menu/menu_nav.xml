@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menuMessages"
+    android:title="@string/menu_messages"
 
+        />
+    <item android:id="@+id/menuFriends"
+        android:title="@string/menu_friends"
+
+        />
+    <item android:id="@+id/menuSociety"
+        android:title="@string/menu_society"
+
+        />
 </menu>

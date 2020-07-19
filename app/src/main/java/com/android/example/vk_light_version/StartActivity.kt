@@ -1,12 +1,11 @@
 package com.android.example.vk_light_version
 
 import android.os.Bundle
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import com.android.example.vk_light_version.databinding.ActivityStartBinding
 import com.android.example.vk_light_version.fragments.PageAdapter
 import kotlinx.android.synthetic.main.activity_start.*
-import kotlinx.android.synthetic.main.toolbar_main.*
 import kotlinx.android.synthetic.main.toolbar_main.view.*
 
 class StartActivity : AppCompatActivity() {
@@ -20,8 +19,8 @@ class StartActivity : AppCompatActivity() {
         setContentView(view)
 
         settingUpViewPager()
-        setSupportActionBar(toolbar.eternal_toolbar)
-
+        setSupportActionBar(incl_toolbar.eternal_toolbar)
+        settingDrawerButton()
 
 
     }
@@ -30,6 +29,12 @@ class StartActivity : AppCompatActivity() {
         view_pager.adapter = PageAdapter(supportFragmentManager,2)
         tabs.setupWithViewPager(view_pager)
         
+    }
+
+    private fun settingDrawerButton(){
+        val toggle = ActionBarDrawerToggle(this,drawer_layout,incl_toolbar.eternal_toolbar,R.string.nav_open_drawer,R.string.nav_close_drawer)
+        drawer_layout.addDrawerListener(toggle)
+        toggle.syncState()
     }
 
 }

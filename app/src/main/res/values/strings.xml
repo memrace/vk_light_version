@@ -2,6 +2,13 @@
     <string name="app_name">VK Light</string>
     <string name="welcome">Welcome</string>
     <integer name="com_vk_sdk_AppId">7534796</integer>
-    <string name="mes_tab">Messages</string>
-    <string name="rec_tab">Recommendations</string>
+
+    //Menu
+    
+    <string name="menu_messages">Сообщения</string>
+    <string name="menu_friends">Друзья</string>
+    <string name="menu_society">Сообщества</string>
+
+    <string name="nav_open_drawer">Open navigation drawer</string>
+    <string name="nav_close_drawer">Close navigation drawer</string>
 </resources>

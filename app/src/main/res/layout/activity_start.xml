@@ -54,6 +54,7 @@
     android:layout_gravity="start"
     app:headerLayout="@layout/side_menu_nav"
     app:menu="@menu/menu_nav"
+    app:itemIconTint="@color/colorAccent"
     app:itemTextAppearance="@style/MenuItemStyle"
     android:background="@color/colorPrimary"
     app:itemTextColor="@color/colorAccent"

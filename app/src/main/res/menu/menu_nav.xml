@@ -5,8 +5,7 @@
 
     <item android:id="@+id/menuMessages"
     android:title="@string/menu_messages"
-
-        android:iconTint="@color/colorAccent"
+        android:icon="@drawable/ic_menu_messages_4"
         />
 
     <item android:id="@+id/menuFriends"

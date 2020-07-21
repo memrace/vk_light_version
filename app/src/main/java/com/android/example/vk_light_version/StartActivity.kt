@@ -51,7 +51,6 @@ class StartActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
 
     private fun settingNavigationListener() {
         viewBinding.navView.setNavigationItemSelectedListener(this)
-
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -59,6 +58,7 @@ class StartActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
             0 -> startActivity(Intent(this, NewsFeed::class.java))
             else -> startActivity(Intent(this, NewsFeed::class.java))
         }
+        drawer_layout.closeDrawer(GravityCompat.START)
         return item.itemId != null
     }
 

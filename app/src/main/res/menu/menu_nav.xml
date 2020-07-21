@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
     <item android:id="@+id/menuMessages"
     android:title="@string/menu_messages"
 
+        android:iconTint="@color/colorAccent"
         />
+
     <item android:id="@+id/menuFriends"
         android:title="@string/menu_friends"
 

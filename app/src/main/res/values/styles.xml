@@ -11,4 +11,12 @@
         <item name="android:textSize">24pt</item>
         <item name="android:textColor">#D8040303</item>
     </style>
+
+
+
+    <style name="MenuItemStyle">
+        <item name="android:textSize">20dp</item>
+        <item name="android:tint">@color/colorAccent</item>
+
+    </style>
 </resources>

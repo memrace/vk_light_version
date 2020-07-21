@@ -4,10 +4,11 @@
     <integer name="com_vk_sdk_AppId">7534796</integer>
 
     //Menu
-    
+
     <string name="menu_messages">Сообщения</string>
     <string name="menu_friends">Друзья</string>
     <string name="menu_society">Сообщества</string>
+    <string name="menu_liked">Понравилось</string>
 
     <string name="nav_open_drawer">Open navigation drawer</string>
     <string name="nav_close_drawer">Close navigation drawer</string>

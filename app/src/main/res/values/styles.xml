@@ -16,7 +16,6 @@
 
     <style name="MenuItemStyle">
         <item name="android:textSize">20dp</item>
-        <item name="android:tint">@color/colorAccent</item>
 
     </style>
 </resources>

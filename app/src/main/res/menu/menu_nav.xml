@@ -10,10 +10,14 @@
 
     <item android:id="@+id/menuFriends"
         android:title="@string/menu_friends"
-
+        android:icon="@drawable/ic_menu_friends"
         />
     <item android:id="@+id/menuSociety"
         android:title="@string/menu_society"
-
+        android:icon="@drawable/ic_menu_groups"
+        />
+    <item android:id="@+id/menuLiked"
+        android:title="@string/menu_liked"
+        android:icon="@drawable/ic_menu_likes"
         />
 </menu>

@@ -68,6 +68,7 @@
     >
     <ImageView
         android:id="@+id/btn_settings"
+        android:onClick="settingsBT"
         android:src="@drawable/ic_menu_settings"
         android:layout_gravity="center"
         android:layout_marginLeft="20dp"

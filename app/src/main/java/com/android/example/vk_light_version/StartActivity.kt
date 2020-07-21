@@ -62,6 +62,10 @@ class StartActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         return item.itemId != null
     }
 
+    fun settingsBT(view:View){
+        startActivity(Intent(this, Settings::class.java))
+    }
+
 
 }
 

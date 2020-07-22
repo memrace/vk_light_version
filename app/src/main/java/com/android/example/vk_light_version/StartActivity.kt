@@ -47,6 +47,7 @@ class StartActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         toggle.drawerArrowDrawable.color = resources.getColor(R.color.colorAccent)
         toggle.drawerArrowDrawable.gapSize = 15f
         toggle.syncState()
+
     }
 
     private fun settingNavigationListener() {

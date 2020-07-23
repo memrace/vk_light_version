@@ -1,20 +1,15 @@
 package com.android.example.vk_light_version
 
 import android.content.Intent
-import android.content.res.Resources
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toolbar
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import com.android.example.vk_light_version.databinding.ActivitySettingsBinding
-import com.android.example.vk_light_version.databinding.ActivityStartBinding
-import kotlinx.android.synthetic.main.activity_settings.*
+import com.vk.api.sdk.VK
 import kotlinx.android.synthetic.main.activity_start.*
-import kotlinx.android.synthetic.main.activity_start.incl_toolbar
 import kotlinx.android.synthetic.main.toolbar_main.view.*
 
 class Settings : AppCompatActivity(), ISetUpToolBarAndNavigation {
@@ -32,25 +27,37 @@ class Settings : AppCompatActivity(), ISetUpToolBarAndNavigation {
         viewBinding = ActivitySettingsBinding.inflate(layoutInflater)
         val view = viewBinding.root
         setContentView(view)
+// Checking VK log
 
-        setUpSupportActionBar()
+        vkIsLogged(VK.isLoggedIn(), Intent(this,Welcome_login::class.java))
+
+
+        setUpSupportActionBar(viewBinding.inclToolbar.eternalToolbar)
 
         val drawable = viewBinding.drawerLayout
         val toggle = ActionBarDrawerToggle(this,viewBinding.drawerLayout,incl_toolbar.eternal_toolbar,R.string.nav_open_drawer,R.string.nav_close_drawer)
 
         settingDrawerToggle(toggle,drawable, resources)
-        settingNavigationListener(viewBinding.navView)
+        settingNavigationListener(viewBinding.inclNav.navView)
     }
 
 
 
-    override fun setUpSupportActionBar() {
-       setSupportActionBar(viewBinding.inclToolbar.eternalToolbar)
-
+    override fun setUpSupportActionBar(toolbar: androidx.appcompat.widget.Toolbar) {
+       setSupportActionBar(toolbar)
     }
 
     override fun settingsBT(view: View) {
         startActivity(Intent(this, Settings::class.java))
+    }
+
+    override fun vkIsLogged(loggedIn: Boolean, intent: Intent) {
+        if (!loggedIn) startActivity(intent)
+    }
+
+    override fun LogOutVk(view: View) {
+        VK.logout()
+        vkIsLogged(VK.isLoggedIn(), Intent(this,Welcome_login::class.java))
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -61,4 +68,6 @@ class Settings : AppCompatActivity(), ISetUpToolBarAndNavigation {
         viewBinding.drawerLayout.closeDrawer(GravityCompat.START)
         return item.itemId != null
     }
+
+
 }

@@ -47,35 +47,9 @@
         android:layout_width="match_parent" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-<com.google.android.material.navigation.NavigationView
-    android:id="@+id/nav_view"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:layout_gravity="start"
-    app:headerLayout="@layout/side_menu_nav"
-    app:menu="@menu/menu_nav"
-    app:itemIconTint="@color/colorAccent"
-    app:itemTextAppearance="@style/MenuItemStyle"
-    android:background="@color/colorPrimary"
-    app:itemTextColor="@color/colorAccent"
-    >
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:background="@color/colorPrimaryDark"
-    android:layout_gravity="bottom"
-    android:gravity="start"
-    >
-    <ImageView
-        android:id="@+id/btn_settings"
-        android:onClick="settingsBT"
-        android:src="@drawable/ic_menu_settings"
-        android:layout_gravity="center"
-        android:layout_marginLeft="20dp"
-        android:layout_width="30dp"
-        android:layout_height="30dp"/>
-</LinearLayout>
-</com.google.android.material.navigation.NavigationView>
+    <include android:id="@+id/incl_nav"
+        layout="@layout/navigation_view"
+        />
 
 </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

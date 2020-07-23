@@ -1,21 +1,21 @@
 package com.android.example.vk_light_version
 
 import android.content.Intent
+import com.vk.api.sdk.VK
 import android.os.Bundle
-import android.view.Gravity
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import com.android.example.vk_light_version.databinding.ActivityStartBinding
 import com.android.example.vk_light_version.fragments.PageAdapter
-import com.google.android.material.navigation.NavigationView
+import com.vk.api.sdk.VKTokenExpiredHandler
 import kotlinx.android.synthetic.main.activity_start.*
 import kotlinx.android.synthetic.main.toolbar_main.view.*
 
-class StartActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
+class StartActivity : AppCompatActivity(), ISetUpToolBarAndNavigation{
     private lateinit var viewBinding:ActivityStartBinding
 
 
@@ -24,14 +24,28 @@ class StartActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         viewBinding = ActivityStartBinding.inflate(layoutInflater)
         val view = viewBinding.root
         setContentView(view)
+        // Checking VK log
+
+        vkIsLogged(VK.isLoggedIn(), Intent(this,Welcome_login::class.java))
+
+        // VK Token Expired Handler
+        VK.addTokenExpiredHandler(tokenTracker)
+
+
+
+
         // Actionbar
-        setSupportActionBar(incl_toolbar.eternal_toolbar)
+        setSupportActionBar(viewBinding.inclToolbar.eternalToolbar)
         // ViewPager
         settingUpViewPager()
         // Toggle for Drawer layout
-        settingDrawerToggle()
+        val drawable = viewBinding.drawerLayout
+        val toggle = ActionBarDrawerToggle(this,viewBinding.drawerLayout,incl_toolbar.eternal_toolbar,R.string.nav_open_drawer,R.string.nav_close_drawer)
+
+        settingDrawerToggle(toggle,drawable, resources)
+
         // NavigationListener
-        settingNavigationListener()
+        settingNavigationListener(viewBinding.inclNav.navView)
 
     }
 
@@ -41,17 +55,31 @@ class StartActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         
     }
 
-    private fun settingDrawerToggle(){
-        val toggle = ActionBarDrawerToggle(this,drawer_layout,incl_toolbar.eternal_toolbar,R.string.nav_open_drawer,R.string.nav_close_drawer)
-        drawer_layout.addDrawerListener(toggle)
-        toggle.drawerArrowDrawable.color = resources.getColor(R.color.colorAccent)
-        toggle.drawerArrowDrawable.gapSize = 15f
-        toggle.syncState()
 
+
+    private val tokenTracker = object: VKTokenExpiredHandler {
+        override fun onTokenExpired() {
+            val intent = Intent(this@StartActivity, Welcome_login::class.java)
+            startActivity(intent)
+
+        }
     }
 
-    private fun settingNavigationListener() {
-        viewBinding.navView.setNavigationItemSelectedListener(this)
+    override fun setUpSupportActionBar(toolbar:Toolbar) {
+        setSupportActionBar(toolbar)
+    }
+
+    override fun settingsBT(view: View) {
+        startActivity(Intent(this, Settings::class.java))
+    }
+
+    override fun vkIsLogged(loggedIn: Boolean, intent: Intent) {
+        if (!loggedIn) startActivity(intent)
+    }
+
+    override fun LogOutVk(view: View) {
+        VK.logout()
+        vkIsLogged(VK.isLoggedIn(), Intent(this,Welcome_login::class.java))
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -59,12 +87,8 @@ class StartActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
             0 -> startActivity(Intent(this, NewsFeed::class.java))
             else -> startActivity(Intent(this, NewsFeed::class.java))
         }
-        drawer_layout.closeDrawer(GravityCompat.START)
+        viewBinding.drawerLayout.closeDrawer(GravityCompat.START)
         return item.itemId != null
-    }
-
-    fun settingsBT(view:View){
-        startActivity(Intent(this, Settings::class.java))
     }
 
 

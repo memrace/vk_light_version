@@ -6,13 +6,11 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.android.example.vk_light_version.databinding.ActivityLoginBinding
-import com.android.example.vk_light_version.fragments.PageAdapter
 import com.vk.api.sdk.VK
 import com.vk.api.sdk.auth.VKAccessToken
 import com.vk.api.sdk.auth.VKAuthCallback
 import com.vk.api.sdk.auth.VKScope
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_start.*
 
 class Welcome_login : AppCompatActivity() {
 	private lateinit var dataBinding: ActivityLoginBinding
@@ -24,9 +22,7 @@ class Welcome_login : AppCompatActivity() {
 
 		dataBinding = DataBindingUtil.setContentView(this,R.layout.activity_login)
 
-		// 2 VK.addTokenExpiredHandler(tokenTracker)
 
-		// ViewPager
 
 
 
@@ -56,11 +52,6 @@ class Welcome_login : AppCompatActivity() {
 		VK.login(this, arrayListOf(VKScope.WALL, VKScope.PHOTOS))
 	}
 
-	// Refactor to startActivity
-//	private val tokenTracker = object: VKTokenExpiredHandler {
-//		override fun onTokenExpired() {
-//			startActivity(Intent(this,Welcome_login::class.java))
-//		}
-//	}
+
 
 }

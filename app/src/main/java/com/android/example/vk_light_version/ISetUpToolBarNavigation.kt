@@ -1,10 +1,14 @@
 package com.android.example.vk_light_version
 
+import android.content.Context
+import android.content.Intent
 import android.content.res.Resources
 import android.view.View
+import android.widget.Toolbar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
+import com.vk.api.sdk.VK
 
 
 interface ISetUpToolBarAndNavigation: NavigationView.OnNavigationItemSelectedListener {
@@ -19,8 +23,7 @@ interface ISetUpToolBarAndNavigation: NavigationView.OnNavigationItemSelectedLis
 
 
     // ActionBar
-    fun setUpSupportActionBar(){
-    }
+    fun setUpSupportActionBar(toolbar: androidx.appcompat.widget.Toolbar)
     // NV Listener
     fun  settingNavigationListener(navigationView: NavigationView){
         navigationView.setNavigationItemSelectedListener(this)
@@ -29,5 +32,10 @@ interface ISetUpToolBarAndNavigation: NavigationView.OnNavigationItemSelectedLis
     // Settings BT
     fun settingsBT(view: View)
 
+
+    // !!! VK !!!!
+
+    fun vkIsLogged(loggedIn:Boolean, intent:Intent)
+    fun LogOutVk(view:View)
 
 }

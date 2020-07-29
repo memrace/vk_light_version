@@ -11,6 +11,7 @@
     android:background="@color/colorPrimaryDark"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     android:id="@+id/start_content"
     android:layout_marginTop="20dp"
@@ -37,8 +38,8 @@
 
         </com.google.android.material.tabs.TabLayout>
 
-
     </androidx.viewpager.widget.ViewPager>
+
     <include
         android:layout_gravity="bottom"
         android:id="@+id/incl_toolbar"
@@ -46,7 +47,15 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent" />
 
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <TextView
+        android:id="@+id/testToken"
+        android:gravity="center"
+        android:text="HERE"
+        android:layout_width="100dp"
+        android:layout_height="50dp"/>
+
     <include android:id="@+id/incl_nav"
         layout="@layout/navigation_view"
         />

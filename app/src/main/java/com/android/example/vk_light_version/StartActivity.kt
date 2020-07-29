@@ -1,7 +1,6 @@
 package com.android.example.vk_light_version
 
 import android.content.Intent
-import com.vk.api.sdk.VK
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -11,14 +10,18 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import com.android.example.vk_light_version.databinding.ActivityStartBinding
 import com.android.example.vk_light_version.fragments.PageAdapter
+import com.vk.api.sdk.VK
+import com.vk.api.sdk.VKCachedKeyValueStorage
+import com.vk.api.sdk.VKKeyValueStorage
 import com.vk.api.sdk.VKTokenExpiredHandler
+import com.vk.api.sdk.auth.VKAccessToken
 import kotlinx.android.synthetic.main.activity_start.*
 import kotlinx.android.synthetic.main.toolbar_main.view.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class StartActivity : AppCompatActivity(), ISetUpToolBarAndNavigation{
     private lateinit var viewBinding:ActivityStartBinding
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityStartBinding.inflate(layoutInflater)
@@ -29,7 +32,7 @@ class StartActivity : AppCompatActivity(), ISetUpToolBarAndNavigation{
         vkIsLogged(VK.isLoggedIn(), Intent(this,Welcome_login::class.java))
 
         // VK Token Expired Handler
-        VK.addTokenExpiredHandler(tokenTracker)
+
 
 
 
@@ -47,6 +50,9 @@ class StartActivity : AppCompatActivity(), ISetUpToolBarAndNavigation{
         // NavigationListener
         settingNavigationListener(viewBinding.inclNav.navView)
 
+
+        VKAu
+
     }
 
     private fun settingUpViewPager() {
@@ -57,13 +63,7 @@ class StartActivity : AppCompatActivity(), ISetUpToolBarAndNavigation{
 
 
 
-    private val tokenTracker = object: VKTokenExpiredHandler {
-        override fun onTokenExpired() {
-            val intent = Intent(this@StartActivity, Welcome_login::class.java)
-            startActivity(intent)
 
-        }
-    }
 
     override fun setUpSupportActionBar(toolbar:Toolbar) {
         setSupportActionBar(toolbar)

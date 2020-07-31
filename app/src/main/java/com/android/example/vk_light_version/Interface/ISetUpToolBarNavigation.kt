@@ -1,14 +1,12 @@
-package com.android.example.vk_light_version
+package com.android.example.vk_light_version.Interface
 
-import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
 import android.view.View
-import android.widget.Toolbar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
+import com.android.example.vk_light_version.R
 import com.google.android.material.navigation.NavigationView
-import com.vk.api.sdk.VK
 
 
 interface ISetUpToolBarAndNavigation: NavigationView.OnNavigationItemSelectedListener {

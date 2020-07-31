@@ -13,6 +13,7 @@ import com.vk.api.sdk.auth.VKAccessToken
 import com.vk.api.sdk.auth.VKAuthCallback
 import com.vk.api.sdk.auth.VKScope
 import kotlinx.android.synthetic.main.activity_login.*
+import java.nio.channels.InterruptedByTimeoutException
 
 
 class Welcome_login : AppCompatActivity() {
@@ -35,12 +36,14 @@ class Welcome_login : AppCompatActivity() {
 		val callback = object: VKAuthCallback {
 			override fun onLogin(token: VKAccessToken) {
 
-
 				VK.saveAccessToken(context = applicationContext, userId = VK.getUserId(), accessToken = token.accessToken,secret = token.secret)
 				VK.addTokenExpiredHandler(tokenTracker)
-				startActivity(Intent(this@Welcome_login,StartActivity::class.java).run {
-					putExtra(Intent.EXTRA_USER, 3).also { startActivity(it) }
-				})
+
+				// Start  StartActivity
+
+				startActivity(Intent(this@Welcome_login,StartActivity::class.java)
+					.run { putExtra("token_access", token.accessToken) })
+
 			}
 
 			override fun onLoginFailed(errorCode: Int) {

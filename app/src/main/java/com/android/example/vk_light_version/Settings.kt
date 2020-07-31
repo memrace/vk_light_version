@@ -7,12 +7,14 @@ import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import com.android.example.vk_light_version.Interface.ISetUpToolBarAndNavigation
 import com.android.example.vk_light_version.databinding.ActivitySettingsBinding
 import com.vk.api.sdk.VK
 import kotlinx.android.synthetic.main.activity_start.*
 import kotlinx.android.synthetic.main.toolbar_main.view.*
 
-class Settings : AppCompatActivity(), ISetUpToolBarAndNavigation {
+class Settings : AppCompatActivity(),
+    ISetUpToolBarAndNavigation {
 
 
     private lateinit var viewBinding: ActivitySettingsBinding

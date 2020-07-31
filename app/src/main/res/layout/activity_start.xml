@@ -52,7 +52,7 @@
     <TextView
         android:id="@+id/testToken"
         android:gravity="center"
-        android:text="HERE"
+        android:text="here"
         android:layout_width="100dp"
         android:layout_height="50dp"/>
 

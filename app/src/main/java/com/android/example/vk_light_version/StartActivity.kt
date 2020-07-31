@@ -4,23 +4,24 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import com.android.example.vk_light_version.Interface.IGetUserToken
+import com.android.example.vk_light_version.Interface.ISetUpToolBarAndNavigation
 import com.android.example.vk_light_version.databinding.ActivityStartBinding
 import com.android.example.vk_light_version.fragments.PageAdapter
 import com.vk.api.sdk.VK
-import com.vk.api.sdk.VKCachedKeyValueStorage
-import com.vk.api.sdk.VKKeyValueStorage
-import com.vk.api.sdk.VKTokenExpiredHandler
-import com.vk.api.sdk.auth.VKAccessToken
 import kotlinx.android.synthetic.main.activity_start.*
+import kotlinx.android.synthetic.main.fragment_messages.*
 import kotlinx.android.synthetic.main.toolbar_main.view.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import org.w3c.dom.Text
 
-class StartActivity : AppCompatActivity(), ISetUpToolBarAndNavigation{
+
+class StartActivity : AppCompatActivity(),
+    ISetUpToolBarAndNavigation, IGetUserToken {
     private lateinit var viewBinding:ActivityStartBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,12 +31,6 @@ class StartActivity : AppCompatActivity(), ISetUpToolBarAndNavigation{
         // Checking VK log
 
         vkIsLogged(VK.isLoggedIn(), Intent(this,Welcome_login::class.java))
-
-        // VK Token Expired Handler
-
-
-
-
 
         // Actionbar
         setSupportActionBar(viewBinding.inclToolbar.eternalToolbar)
@@ -50,8 +45,9 @@ class StartActivity : AppCompatActivity(), ISetUpToolBarAndNavigation{
         // NavigationListener
         settingNavigationListener(viewBinding.inclNav.navView)
 
+        // Vk token
+        viewBinding.testToken.text = getUserToken(intent)
 
-        VKAu
 
     }
 
@@ -90,6 +86,8 @@ class StartActivity : AppCompatActivity(), ISetUpToolBarAndNavigation{
         viewBinding.drawerLayout.closeDrawer(GravityCompat.START)
         return item.itemId != null
     }
+
+
 
 
 }

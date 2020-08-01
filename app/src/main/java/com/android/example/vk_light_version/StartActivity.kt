@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -15,9 +14,7 @@ import com.android.example.vk_light_version.databinding.ActivityStartBinding
 import com.android.example.vk_light_version.fragments.PageAdapter
 import com.vk.api.sdk.VK
 import kotlinx.android.synthetic.main.activity_start.*
-import kotlinx.android.synthetic.main.fragment_messages.*
 import kotlinx.android.synthetic.main.toolbar_main.view.*
-import org.w3c.dom.Text
 
 
 class StartActivity : AppCompatActivity(),
@@ -45,7 +42,7 @@ class StartActivity : AppCompatActivity(),
         // NavigationListener
         settingNavigationListener(viewBinding.inclNav.navView)
 
-        // Vk token
+        // Vk token test
         viewBinding.testToken.text = getUserToken(intent)
 
 

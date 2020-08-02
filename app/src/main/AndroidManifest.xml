@@ -21,7 +21,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".NewsFeed"></activity>
-        <activity android:name=".Welcome_login" />
+        <activity android:name=".Welcome_login">
+
+        </activity>
     </application>
 
 </manifest>

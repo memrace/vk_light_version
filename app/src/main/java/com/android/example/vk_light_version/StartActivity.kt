@@ -1,6 +1,8 @@
 package com.android.example.vk_light_version
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -13,6 +15,7 @@ import com.android.example.vk_light_version.Interface.ISetUpToolBarAndNavigation
 import com.android.example.vk_light_version.databinding.ActivityStartBinding
 import com.android.example.vk_light_version.fragments.PageAdapter
 import com.vk.api.sdk.VK
+import com.vk.api.sdk.VKTokenExpiredHandler
 import kotlinx.android.synthetic.main.activity_start.*
 import kotlinx.android.synthetic.main.toolbar_main.view.*
 
@@ -22,8 +25,8 @@ class StartActivity : AppCompatActivity(),
 
 
     private lateinit var viewBinding:ActivityStartBinding
-    private lateinit var accessToken: String
 
+    private lateinit var accessToken:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +34,7 @@ class StartActivity : AppCompatActivity(),
         val view = viewBinding.root
         setContentView(view)
         // Checking VK log
-
+        VK.addTokenExpiredHandler(tokenTracker)
         vkIsLogged(VK.isLoggedIn(), Intent(this,Welcome_login::class.java))
 
         // Actionbar
@@ -48,21 +51,15 @@ class StartActivity : AppCompatActivity(),
         settingNavigationListener(viewBinding.inclNav.navView)
 
         // Vk token test
-        accessToken = getUserToken(intent)
-        viewBinding.testToken.text  = accessToken
-
-
     }
+
+
 
     private fun settingUpViewPager() {
         view_pager.adapter = PageAdapter(supportFragmentManager,2)
         tabs.setupWithViewPager(view_pager)
         
     }
-
-
-
-
 
     override fun setUpSupportActionBar(toolbar:Toolbar) {
         setSupportActionBar(toolbar)
@@ -92,7 +89,23 @@ class StartActivity : AppCompatActivity(),
 
 
 
+    private val tokenTracker = object: VKTokenExpiredHandler {
+        override fun onTokenExpired() {
+            val intent = Intent(this@StartActivity, Welcome_login::class.java)
+            startActivity(intent)
 
+        }
+    }
+
+    override fun saveUserToken() {
+        val sPref = getPreferences(Context.MODE_PRIVATE)
+        val ed:SharedPreferences.Editor = sPref.edit()
+        ed.putString()
+    }
+
+    override fun loadUserToken() {
+
+    }
 }
 
 

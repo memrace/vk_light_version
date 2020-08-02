@@ -36,7 +36,7 @@ class Welcome_login : AppCompatActivity() {
 		val callback = object: VKAuthCallback {
 			override fun onLogin(token: VKAccessToken) {
 
-				VK.saveAccessToken(context = applicationContext, userId = VK.getUserId(), accessToken = token.accessToken,secret = token.secret)
+//				VK.saveAccessToken(context = applicationContext, userId = VK.getUserId(), accessToken = token.accessToken,secret = token.secret)
 				VK.addTokenExpiredHandler(tokenTracker)
 
 				// Start  StartActivity

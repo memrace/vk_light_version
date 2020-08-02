@@ -19,7 +19,9 @@ import kotlinx.android.synthetic.main.toolbar_main.view.*
 
 class StartActivity : AppCompatActivity(),
     ISetUpToolBarAndNavigation, IGetUserToken {
+
     private lateinit var viewBinding:ActivityStartBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityStartBinding.inflate(layoutInflater)
@@ -43,7 +45,7 @@ class StartActivity : AppCompatActivity(),
         settingNavigationListener(viewBinding.inclNav.navView)
 
         // Vk token test
-        viewBinding.testToken.text = getUserToken(intent)
+
 
 
     }

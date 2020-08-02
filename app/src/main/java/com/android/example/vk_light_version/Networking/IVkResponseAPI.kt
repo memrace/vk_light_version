@@ -14,6 +14,7 @@ import retrofit2.http.Query
 private const val METHOD_USER: String = "users.get"
 private const val VK_V:String = "5.89"
 private const val PARAM_USER_ID:String = "user_ids"
+private const val ACCESS_TOKEN:String = "access_token"
 
 
 
@@ -22,7 +23,8 @@ interface IVkResponseAPI {
 
     @GET(METHOD_USER)
     fun getUserData (
-        @Query(PARAM_USER_ID)user_id:String
+        @Query(PARAM_USER_ID)user_id:String,
+        @Query(ACCESS_TOKEN)access_token:String
     ): Call<DataVkResponse>
 
 

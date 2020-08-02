@@ -20,7 +20,10 @@ import kotlinx.android.synthetic.main.toolbar_main.view.*
 class StartActivity : AppCompatActivity(),
     ISetUpToolBarAndNavigation, IGetUserToken {
 
+
     private lateinit var viewBinding:ActivityStartBinding
+    private lateinit var accessToken: String
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +48,8 @@ class StartActivity : AppCompatActivity(),
         settingNavigationListener(viewBinding.inclNav.navView)
 
         // Vk token test
-
+        accessToken = getUserToken(intent)
+        viewBinding.testToken.text  = accessToken
 
 
     }

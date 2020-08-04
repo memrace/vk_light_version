@@ -1,6 +1,8 @@
 package com.android.example.vk_light_version
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -36,13 +38,16 @@ class Welcome_login : AppCompatActivity() {
 		val callback = object: VKAuthCallback {
 			override fun onLogin(token: VKAccessToken) {
 
-//				VK.saveAccessToken(context = applicationContext, userId = VK.getUserId(), accessToken = token.accessToken,secret = token.secret)
-
+				VK.saveAccessToken(context = applicationContext, userId = VK.getUserId(), accessToken = token.accessToken,secret = token.secret)
+				val sPref:SharedPreferences = getSharedPreferences("access_token",Context.MODE_PRIVATE)
+				with(sPref.edit()) {
+					putString("access_token", token.accessToken)
+					apply()
+				}
 
 				// Start  StartActivity
-				Welcome_login.tokenAccess = token.accessToken
-				startActivity(Intent(this@Welcome_login,StartActivity::class.java)
-					.run { putExtra("token_access", token.accessToken) })
+
+				startActivity(Intent(this@Welcome_login,StartActivity::class.java))
 
 			}
 
@@ -61,8 +66,5 @@ class Welcome_login : AppCompatActivity() {
 		VK.login(this, arrayListOf(VKScope.WALL, VKScope.PHOTOS))
 	}
 
-companion object {
-	var tokenAccess: String? =  null
-}
 
 }

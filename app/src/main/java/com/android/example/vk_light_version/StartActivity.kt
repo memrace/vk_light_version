@@ -15,18 +15,19 @@ import com.android.example.vk_light_version.Interface.ISetUpToolBarAndNavigation
 import com.android.example.vk_light_version.databinding.ActivityStartBinding
 import com.android.example.vk_light_version.fragments.PageAdapter
 import com.vk.api.sdk.VK
+import com.vk.api.sdk.VKApiConfig
 import com.vk.api.sdk.VKTokenExpiredHandler
 import kotlinx.android.synthetic.main.activity_start.*
 import kotlinx.android.synthetic.main.toolbar_main.view.*
 
 
 class StartActivity : AppCompatActivity(),
-    ISetUpToolBarAndNavigation, IGetUserToken {
+    ISetUpToolBarAndNavigation, IGetUserToken{
 
 
     private lateinit var viewBinding:ActivityStartBinding
 
-    private lateinit var accessToken:String
+    private  var accessToken:String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +52,12 @@ class StartActivity : AppCompatActivity(),
         settingNavigationListener(viewBinding.inclNav.navView)
 
         // Vk token test
+        getUserToken(accessToken)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        accessToken = getSharedPreferences("access_token", Context.MODE_PRIVATE).getString("access_token", "BAD").toString()
     }
 
 
@@ -97,15 +104,15 @@ class StartActivity : AppCompatActivity(),
         }
     }
 
-    override fun saveUserToken() {
-        val sPref = getPreferences(Context.MODE_PRIVATE)
-        val ed:SharedPreferences.Editor = sPref.edit()
-        ed.putString()
+    override fun getUserToken(token: String?) {
+        if (token!=null) {
+            viewBinding.testToken.text = accessToken
+        } else
+            viewBinding.testToken.text = getSharedPreferences("access_token",
+                Context.MODE_PRIVATE).getString("access_token", "BAD")
     }
 
-    override fun loadUserToken() {
 
-    }
 }
 
 

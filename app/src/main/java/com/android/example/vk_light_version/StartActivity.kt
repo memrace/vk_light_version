@@ -2,7 +2,6 @@ package com.android.example.vk_light_version
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -12,13 +11,17 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import com.android.example.vk_light_version.Interface.IGetUserToken
 import com.android.example.vk_light_version.Interface.ISetUpToolBarAndNavigation
+import com.android.example.vk_light_version.Networking.IVkResponseAPI
 import com.android.example.vk_light_version.databinding.ActivityStartBinding
 import com.android.example.vk_light_version.fragments.PageAdapter
 import com.vk.api.sdk.VK
-import com.vk.api.sdk.VKApiConfig
 import com.vk.api.sdk.VKTokenExpiredHandler
 import kotlinx.android.synthetic.main.activity_start.*
+import kotlinx.android.synthetic.main.side_menu_nav.view.*
 import kotlinx.android.synthetic.main.toolbar_main.view.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import retrofit2.await
 
 
 class StartActivity : AppCompatActivity(),
@@ -53,6 +56,15 @@ class StartActivity : AppCompatActivity(),
 
         // Vk token test
         getUserToken(accessToken)
+        // VK request
+
+        GlobalScope.launch {
+            val vkRequest: IVkResponseAPI = IVkResponseAPI.instance
+                val response = vkRequest.getUserData(accessToken).await()
+            viewBinding.inclNav.navView.side_menu.user_name.text = response.responseUser[0].fName
+
+        }
+
     }
 
     override fun onDestroy() {
@@ -106,9 +118,9 @@ class StartActivity : AppCompatActivity(),
 
     override fun getUserToken(token: String?) {
         if (token!=null) {
-            viewBinding.testToken.text = accessToken
+
         } else
-            viewBinding.testToken.text = getSharedPreferences("access_token",
+            accessToken = getSharedPreferences("access_token",
                 Context.MODE_PRIVATE).getString("access_token", "BAD")
     }
 

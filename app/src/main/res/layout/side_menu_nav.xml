@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorPrimary"
+    android:id="@+id/side_menu"
     >
 
 
@@ -40,13 +41,12 @@
         </androidx.cardview.widget.CardView>
 
 
-
         <TextView
             android:id="@+id/user_name"
             android:layout_width="wrap_content"
             android:layout_height="30sp"
             android:layout_marginTop="16dp"
-            android:text="Alexandr Sozonov"
+            android:text="Name?"
             android:textColor="@color/colorAccent"
             android:textSize="25sp"
             app:layout_constraintBottom_toTopOf="@+id/user_id"
@@ -60,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="20sp"
             android:layout_marginBottom="24dp"
-            android:text="\@lxndrsozo"
+            android:text="domain?"
             android:textColor="@color/colorAccent"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"

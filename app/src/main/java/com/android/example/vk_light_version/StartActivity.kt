@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_start.*
 import kotlinx.android.synthetic.main.side_menu_nav.view.*
 import kotlinx.android.synthetic.main.toolbar_main.view.*
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.async
 import retrofit2.await
 
 
@@ -58,12 +58,9 @@ class StartActivity : AppCompatActivity(),
         getUserToken(accessToken)
         // VK request
 
-        GlobalScope.launch {
-            val vkRequest: IVkResponseAPI = IVkResponseAPI.instance
-                val response = vkRequest.getUserData(accessToken).await()
-            viewBinding.inclNav.navView.side_menu.user_name.text = response.responseUser[0].fName
+            getUserInfo()
 
-        }
+
 
     }
 
@@ -73,7 +70,16 @@ class StartActivity : AppCompatActivity(),
     }
 
 
+private  fun getUserInfo() {
+    val vkRequest:IVkResponseAPI = IVkResponseAPI.instance
+    GlobalScope.async {  val response = vkRequest.getUserData(accessToken.toString()).await()
+        viewBinding.inclNav.navView.side_menu.fName.text = response.response[0].fName
+        viewBinding.inclNav.navView.side_menu.lastName.text = response.response[0].lName
+        viewBinding.inclNav.navView.side_menu.user_id.text = "@"+ response.response[0].shortID
+    }
 
+
+}
     private fun settingUpViewPager() {
         view_pager.adapter = PageAdapter(supportFragmentManager,2)
         tabs.setupWithViewPager(view_pager)
@@ -118,10 +124,12 @@ class StartActivity : AppCompatActivity(),
 
     override fun getUserToken(token: String?) {
         if (token!=null) {
-
+            accessToken = token
+            testToken.text = accessToken
         } else
             accessToken = getSharedPreferences("access_token",
                 Context.MODE_PRIVATE).getString("access_token", "BAD")
+                testToken.text = accessToken
     }
 
 

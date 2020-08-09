@@ -55,6 +55,10 @@
         android:text="here"
         android:layout_width="100dp"
         android:layout_height="50dp"/>
+    <ImageView
+        android:id="@+id/testIMG"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <include android:id="@+id/incl_nav"
         layout="@layout/navigation_view"

@@ -43,6 +43,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.3.0-alpha02'
     implementation 'com.vk:androidsdk:2.2.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

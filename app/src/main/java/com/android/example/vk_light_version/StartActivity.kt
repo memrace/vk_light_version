@@ -2,26 +2,38 @@ package com.android.example.vk_light_version
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.media.Image
+import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.net.toUri
 import androidx.core.view.GravityCompat
 import com.android.example.vk_light_version.Interface.IGetUserToken
 import com.android.example.vk_light_version.Interface.ISetUpToolBarAndNavigation
+import com.android.example.vk_light_version.Networking.DataVkResponse.DataUser
+import com.android.example.vk_light_version.Networking.DataVkResponse.DataVkResponse
 import com.android.example.vk_light_version.Networking.IVkResponseAPI
 import com.android.example.vk_light_version.databinding.ActivityStartBinding
 import com.android.example.vk_light_version.fragments.PageAdapter
+import com.squareup.picasso.Picasso
+import com.squareup.picasso.Target
 import com.vk.api.sdk.VK
 import com.vk.api.sdk.VKTokenExpiredHandler
 import kotlinx.android.synthetic.main.activity_start.*
+import kotlinx.android.synthetic.main.side_menu_nav.*
 import kotlinx.android.synthetic.main.side_menu_nav.view.*
 import kotlinx.android.synthetic.main.toolbar_main.view.*
+import kotlinx.coroutines.*
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
 import retrofit2.await
+import java.net.URI
+import java.net.URL
 
 
 class StartActivity : AppCompatActivity(),
@@ -31,6 +43,8 @@ class StartActivity : AppCompatActivity(),
     private lateinit var viewBinding:ActivityStartBinding
 
     private  var accessToken:String? = null
+
+    private var avatarURL: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,9 +73,7 @@ class StartActivity : AppCompatActivity(),
         // VK request
 
             getUserInfo()
-
-
-
+            findViewById<ImageView>(R.id.AvatarImg).setImageResource(R.drawable.ic_menu_friends)
     }
 
     override fun onDestroy() {
@@ -70,13 +82,30 @@ class StartActivity : AppCompatActivity(),
     }
 
 
-private  fun getUserInfo() {
+private fun getUserInfo() {
     val vkRequest:IVkResponseAPI = IVkResponseAPI.instance
-    GlobalScope.async {  val response = vkRequest.getUserData(accessToken.toString()).await()
+    GlobalScope.launch {
+
+        val response = vkRequest.getUserData(accessToken.toString()).await()
         viewBinding.inclNav.navView.side_menu.fName.text = response.response[0].fName
         viewBinding.inclNav.navView.side_menu.lastName.text = response.response[0].lName
         viewBinding.inclNav.navView.side_menu.user_id.text = "@"+ response.response[0].shortID
+
+        val sPref:SharedPreferences = getSharedPreferences("avatarURL", Context.MODE_PRIVATE)
+        with(sPref.edit()){
+            putString("avatarURL", response.response[0].photoURL)
+            apply()
+        }
+
+
+
+
     }
+    avatarURL = getSharedPreferences("avatarURL", Context.MODE_PRIVATE).getString("avatarURL", "BAD")
+
+
+
+
 
 
 }

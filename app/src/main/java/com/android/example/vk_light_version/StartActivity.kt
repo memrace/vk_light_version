@@ -2,18 +2,14 @@ package com.android.example.vk_light_version
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
-import android.media.Image
-import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.ImageView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.net.toUri
 import androidx.core.view.GravityCompat
+import androidx.databinding.DataBindingUtil
 import com.android.example.vk_light_version.Interface.IGetUserToken
 import com.android.example.vk_light_version.Interface.ISetUpToolBarAndNavigation
 import com.android.example.vk_light_version.Networking.DataVkResponse.DataUser
@@ -22,25 +18,20 @@ import com.android.example.vk_light_version.Networking.IVkResponseAPI
 import com.android.example.vk_light_version.databinding.ActivityStartBinding
 import com.android.example.vk_light_version.fragments.PageAdapter
 import com.squareup.picasso.Picasso
-import com.squareup.picasso.Target
 import com.vk.api.sdk.VK
 import com.vk.api.sdk.VKTokenExpiredHandler
 import kotlinx.android.synthetic.main.activity_start.*
-import kotlinx.android.synthetic.main.side_menu_nav.*
 import kotlinx.android.synthetic.main.side_menu_nav.view.*
 import kotlinx.android.synthetic.main.toolbar_main.view.*
 import kotlinx.coroutines.*
-import kotlinx.coroutines.GlobalScope
 import retrofit2.await
-import java.net.URI
-import java.net.URL
 
 
 class StartActivity : AppCompatActivity(),
     ISetUpToolBarAndNavigation, IGetUserToken{
 
 
-    private lateinit var viewBinding:ActivityStartBinding
+    private lateinit var dataBinding:ActivityStartBinding
 
     private  var accessToken:String? = null
 
@@ -48,32 +39,32 @@ class StartActivity : AppCompatActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewBinding = ActivityStartBinding.inflate(layoutInflater)
-        val view = viewBinding.root
-        setContentView(view)
+        dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_start)
         // Checking VK log
         VK.addTokenExpiredHandler(tokenTracker)
         vkIsLogged(VK.isLoggedIn(), Intent(this,Welcome_login::class.java))
 
         // Actionbar
-        setSupportActionBar(viewBinding.inclToolbar.eternalToolbar)
+        setSupportActionBar(dataBinding.inclToolbar.eternalToolbar)
         // ViewPager
         settingUpViewPager()
         // Toggle for Drawer layout
-        val drawable = viewBinding.drawerLayout
-        val toggle = ActionBarDrawerToggle(this,viewBinding.drawerLayout,incl_toolbar.eternal_toolbar,R.string.nav_open_drawer,R.string.nav_close_drawer)
+        val drawable = dataBinding.drawerLayout
+        val toggle = ActionBarDrawerToggle(this,dataBinding.drawerLayout,incl_toolbar.eternal_toolbar,R.string.nav_open_drawer,R.string.nav_close_drawer)
 
         settingDrawerToggle(toggle,drawable, resources)
 
         // NavigationListener
-        settingNavigationListener(viewBinding.inclNav.navView)
+        settingNavigationListener(dataBinding.inclNav.navView)
 
         // Vk token test
         getUserToken(accessToken)
         // VK request
 
-            getUserInfo()
-            findViewById<ImageView>(R.id.AvatarImg).setImageResource(R.drawable.ic_menu_friends)
+
+
+
+
     }
 
     override fun onDestroy() {
@@ -82,33 +73,28 @@ class StartActivity : AppCompatActivity(),
     }
 
 
-private fun getUserInfo() {
+private suspend fun getUserInfo():List<DataUser> {
     val vkRequest:IVkResponseAPI = IVkResponseAPI.instance
-    GlobalScope.launch {
-
-        val response = vkRequest.getUserData(accessToken.toString()).await()
-        viewBinding.inclNav.navView.side_menu.fName.text = response.response[0].fName
-        viewBinding.inclNav.navView.side_menu.lastName.text = response.response[0].lName
-        viewBinding.inclNav.navView.side_menu.user_id.text = "@"+ response.response[0].shortID
-
-        val sPref:SharedPreferences = getSharedPreferences("avatarURL", Context.MODE_PRIVATE)
-        with(sPref.edit()){
-            putString("avatarURL", response.response[0].photoURL)
-            apply()
+    var response:Deferred<DataVkResponse> = GlobalScope.async(){
+        return@async vkRequest.getUserData(accessToken.toString()).await()
         }
-
-
-
-
-    }
+    return response.await().response
+//    val sPref:SharedPreferences = getSharedPreferences("avatarURL", Context.MODE_PRIVATE)
+//    with(sPref.edit()){
+//            putString("avatarURL", response.response[0].photoURL)
+//        apply()
+//    }
     avatarURL = getSharedPreferences("avatarURL", Context.MODE_PRIVATE).getString("avatarURL", "BAD")
 
-
-
-
-
-
 }
+
+
+
+
+
+
+
+
     private fun settingUpViewPager() {
         view_pager.adapter = PageAdapter(supportFragmentManager,2)
         tabs.setupWithViewPager(view_pager)
@@ -125,6 +111,17 @@ private fun getUserInfo() {
 
     override fun vkIsLogged(loggedIn: Boolean, intent: Intent) {
         if (!loggedIn) startActivity(intent)
+        else     GlobalScope.launch(Dispatchers.Main) {
+            delay(1500)
+            val response = getUserInfo()
+            dataBinding.inclNav.navView.side_menu.fName.text = response[0].fName
+            dataBinding.inclNav.navView.side_menu.lastName.text = response[0].lName
+            dataBinding.inclNav.navView.side_menu.user_id.text = "@" + response[0].shortID
+            Picasso.get().load(response[0].photoURL).into(dataBinding.inclNav.navView.side_menu.AvatarImg)
+
+
+
+        }
     }
 
     override fun LogOutVk(view: View) {
@@ -137,7 +134,7 @@ private fun getUserInfo() {
             0 -> startActivity(Intent(this, NewsFeed::class.java))
             else -> startActivity(Intent(this, NewsFeed::class.java))
         }
-        viewBinding.drawerLayout.closeDrawer(GravityCompat.START)
+        dataBinding.drawerLayout.closeDrawer(GravityCompat.START)
         return item.itemId != null
     }
 

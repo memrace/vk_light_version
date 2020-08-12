@@ -23,7 +23,7 @@ data class DataUser (
     @SerializedName("domain")
     @Expose
         val shortID:String,
-    @SerializedName("photo_50")
+    @SerializedName("photo_100")
     @Expose
         val photoURL:String,
     @SerializedName("online")
